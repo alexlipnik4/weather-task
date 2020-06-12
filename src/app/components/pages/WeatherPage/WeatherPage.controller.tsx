@@ -7,11 +7,11 @@ import { connect } from 'react-redux'
 import { setCurrentCondition, setForecast, setCurrentLocationName} from '../../../common/redux/actions'
 
 const WeatherPageController = (props: any) => {
+    const [inputValue, setInputValue] = useState('');
+    const [showOptions, setShowOptions] = useState(false);
+    const [locationKey, setLocationKey] = useState('');
+    const [unit, setUnit] = useState('C');
 
-    console.log(props, 'controller redux')
-    const [inputValue, setInputValue] = useState('')
-    const [showOptions, setShowOptions] = useState(false)
-    const [locationKey, setLocationKey] = useState('')
     const [options, setOptions] = useState([
         {
             AdministrativeArea: {
@@ -28,6 +28,7 @@ const WeatherPageController = (props: any) => {
             Type: 'string',
         }
     ])
+
 
 
     // useEffect(() => {
@@ -65,6 +66,11 @@ const WeatherPageController = (props: any) => {
         }, [ref]);
     }
 
+
+    const onUnitChange = (value: string) => {
+        setUnit(value);
+    }
+
     const wrapperRef = useRef(null);
     OutsideInputClick(wrapperRef);
 
@@ -90,6 +96,8 @@ const WeatherPageController = (props: any) => {
             wrapperRef={wrapperRef}
             showOptions={showOptions}
             onItemClick={onItemClick}
+            unit={unit}
+            onUnitChange={onUnitChange}
         />
     )
 }

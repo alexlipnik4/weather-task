@@ -36,7 +36,6 @@
 
     &__content {
         width: 100%;
-        border: 1px solid;
         padding: 20px;
         max-height: inherit;
         display: flex;
@@ -47,9 +46,13 @@
         
         #{$self}__content-header {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
-            
+            #{$self}__unit-change {
+                button:nth-child(2) {
+                    margin-left: 10px;
+                }
+            }
             #{$self}__content-actions {
                 display: flex;
                 align-items: center;

@@ -38,8 +38,13 @@ const WeatherPage = (props: IWetherPageProps) => (
             </div>
         </div>
 
-        <div className="weather-page__content">
+        <Elevation z={4} className="weather-page__content">
             <div className="weather-page__content-header">
+                <div className="weather-page__unit-change">
+                    <Button onClick={() => props.onUnitChange('F')} unelevated={props.unit === 'F'} outlined={props.unit === 'C'}>Imperial</Button>
+                    <Button onClick={() => props.onUnitChange('C')} unelevated={props.unit === 'C'} outlined={props.unit === 'F'}>Metric</Button>
+                </div>
+                
                 <div className="weather-page__content-actions">
                     <Icon icon="favorite" />
                     <Button outlined>Add to favorites</Button>
@@ -51,7 +56,9 @@ const WeatherPage = (props: IWetherPageProps) => (
                 <div>
                     <Typography tag="div" use="body1">{props.locationName}</Typography>
                     <Typography tag="div" use="body1">
-                        {`${props.currentDay.Temperature.Metric.Value} ${props.currentDay.Temperature.Metric.Unit}`}
+                        {`${props.unit === 'C' ? props.currentDay.Temperature.Metric.Value : props.currentDay.Temperature.Imperial.Value}
+                            ${props.unit === 'C' ? props.currentDay.Temperature.Metric.Unit : props.currentDay.Temperature.Imperial.Unit}
+                        `}
                     </Typography>
 
                     <Typography tag="div" className="weather-page__status" use="headline3">{props.currentDay.WeatherText}</Typography>
@@ -63,13 +70,13 @@ const WeatherPage = (props: IWetherPageProps) => (
                 <div className="weather-page__week-status-container">
                     {
                         props.forecast.DailyForecasts.map((dayValue, i) => (
-                            <Day key={i} {...dayValue} />
+                            <Day celsius={props.unit === 'C'} key={i} {...dayValue} />
                         ))
                     }
                 </div>
             </div>
 
-        </div>
+        </Elevation>
     </div>
 )
 

@@ -78,8 +78,10 @@ export interface IWetherPageProps {
         Rank: number,
         Type: string,
     }[],
+    unit: string,
     locationName: string,
     wrapperRef: any,
     showOptions: boolean,
+    onUnitChange: (value: string) => void,
     onItemClick: (value: {text: string, key: string}) => void,
 }
