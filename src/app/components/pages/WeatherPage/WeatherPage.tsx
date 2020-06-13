@@ -31,10 +31,10 @@ const WeatherPage = (props: IWetherPageProps) => (
                 <DrawerSubtitle>Select celsius or fahrenheit</DrawerSubtitle>
             </DrawerHeader>
             <DrawerContent>
-            <List>
-                <ListItem selected={props.unit === 'F'} onClick={() => props.onUnitChange('F')}>Imperial</ListItem>
-                <ListItem selected={props.unit === 'C'} onClick={() => props.onUnitChange('C')}>Metric</ListItem>
-            </List>
+                <List>
+                    <ListItem selected={props.unit === 'F'} onClick={() => props.onUnitChange('F')}>Imperial</ListItem>
+                    <ListItem selected={props.unit === 'C'} onClick={() => props.onUnitChange('C')}>Metric</ListItem>
+                </List>
             </DrawerContent>
         </Drawer>
 
@@ -71,9 +71,9 @@ const WeatherPage = (props: IWetherPageProps) => (
                             </TextField>
                         </div>
                     </TopAppBarSection>
-                    
+
                     <TopAppBarSection alignEnd>
-                        <TopAppBarActionItem onClick={() => props.onFavoriteClick(props.locationKey)} icon="favorite" />
+                        <TopAppBarActionItem style={{color: `${props.isFavorite ? 'red' : 'white'}`}} onClick={() => props.onFavoriteClick(props.locationKey)} icon="favorite" />
                     </TopAppBarSection>
                 </TopAppBarRow>
             </TopAppBar>

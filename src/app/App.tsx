@@ -1,7 +1,7 @@
 import React from 'react';
 
 import WeatherPage from './components/pages/WeatherPage/WeatherPage.controller';
-import FavoritesPage from './components/pages/FavoritesPage/FavoritesPage';
+import FavoritesPage from './components/pages/FavoritesPage/FavoritesPage.controller';
 
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 import './App.scss';

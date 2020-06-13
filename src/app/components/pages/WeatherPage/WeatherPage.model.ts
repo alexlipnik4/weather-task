@@ -88,4 +88,5 @@ export interface IWetherPageProps {
     showOptions: boolean,
     onUnitChange: (value: string) => void,
     onItemClick: (value: {text: string, key: string}) => void,
+    isFavorite: boolean,
 }

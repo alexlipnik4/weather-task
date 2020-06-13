@@ -9,6 +9,7 @@ import { setCurrentCondition, setForecast, setCurrentLocationName} from '../../.
 const WeatherPageController = (props: any) => {
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(false);
+    const [isFavorite, setIsFavorite] = useState(false);
     const [locationKey, setLocationKey] = useState('1494045');
     const [modalOpen, setOpen] = React.useState(false);
 
@@ -31,6 +32,85 @@ const WeatherPageController = (props: any) => {
         }
     ])
 
+    type Location = {locationKey: string, locationName: string};
+    
+    const checkIfLocationKeyExist = () => {
+        let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
+        let changed: boolean = false;
+
+        locations.forEach((location: Location) => {
+            if(location.locationKey === locationKey){
+                const trimmedLocations = locations.filter((location: Location) => location.locationKey !== locationKey)
+                localStorage.setItem('favoriteLocations', JSON.stringify(trimmedLocations));
+                setIsFavorite(false)
+                changed = true;
+            }
+        })
+
+        if(!changed) {
+            setIsFavorite(true)
+            localStorage.setItem('favoriteLocations', JSON.stringify([...locations, {locationKey, locationName: props.weather.locationName}]));
+        }
+    }
+
+    const onFavoriteClick = (locationKey: string) => {
+        if(localStorage.getItem('favoriteLocations')) {
+            checkIfLocationKeyExist();
+        } else {
+            setIsFavorite(true)
+            let locations: Location[] = [
+                {
+                    locationKey,
+                    locationName: props.weather.locationName
+                }
+            ];
+            localStorage.setItem('favoriteLocations', JSON.stringify(locations));
+        }
+    }
+
+    const onUnitChange = (value: string) => {
+        setUnit(value);
+    }
+
+    const onTextChange = (e: React.FormEvent<HTMLInputElement>) => {
+        const target = e.target as HTMLTextAreaElement;
+        setShowOptions(true);
+        setInputValue(target.value)
+    }
+
+    const onItemClick = (value: {text: string, key: string}) => {
+        setInputValue(value.text)
+        setLocationKey(value.key)
+    }
+
+    const OutsideInputClick = (ref: any) => {
+        useEffect(() => {
+            const handleClickOutside = (event: any) => {
+                if (ref.current && !ref.current.contains(event.target)) {
+                    setShowOptions(false);
+                }
+            }
+      
+            document.addEventListener("mousedown", handleClickOutside);
+            return () => {
+                document.removeEventListener("mousedown", handleClickOutside);
+            };
+        }, [ref]);
+    }
+
+    const wrapperRef = useRef(null);
+    OutsideInputClick(wrapperRef);
+
+    useEffect(() => {
+        let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
+
+        locations.forEach((location: Location) => {
+            if(location.locationKey === locationKey){
+                setIsFavorite(true)
+            }
+        })
+    },[]);
+
     // useEffect(() => {
     //     if(inputValue !== ''){
     //         weatherService.getCityAutocomplete(inputValue).then(data => {
@@ -51,52 +131,9 @@ const WeatherPageController = (props: any) => {
     //     }
     // }, [locationKey])
 
-    const OutsideInputClick = (ref: any) => {
-        useEffect(() => {
-            const handleClickOutside = (event: any) => {
-                if (ref.current && !ref.current.contains(event.target)) {
-                    setShowOptions(false);
-                }
-            }
-      
-            document.addEventListener("mousedown", handleClickOutside);
-            return () => {
-                document.removeEventListener("mousedown", handleClickOutside);
-            };
-        }, [ref]);
-    }
+
     
-    const onFavoriteClick = (locationKey: string) => {
-        if(localStorage.getItem('favoriteLocations')) {
-            let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
-            if(locations.includes(locationKey)){
-                return;
-            } else {
-                localStorage.setItem('favoriteLocations', JSON.stringify([...locations, locationKey]));
-            }
-        } else {
-            let locations: string[] = [locationKey];
-            localStorage.setItem('favoriteLocations', JSON.stringify(locations));
-        }
-    }
-
-    const onUnitChange = (value: string) => {
-        setUnit(value);
-    }
-
-    const wrapperRef = useRef(null);
-    OutsideInputClick(wrapperRef);
-
-    const onTextChange = (e: React.FormEvent<HTMLInputElement>) => {
-        const target = e.target as HTMLTextAreaElement;
-        setShowOptions(true);
-        setInputValue(target.value)
-    }
-
-    const onItemClick = (value: {text: string, key: string}) => {
-        setInputValue(value.text)
-        setLocationKey(value.key)
-    }
+    // localStorage.removeItem('favoriteLocations');
 
     return (
         <WeatherPage
@@ -115,6 +152,7 @@ const WeatherPageController = (props: any) => {
             setOpen={setOpen}
             locationKey={locationKey}
             onFavoriteClick={onFavoriteClick}
+            isFavorite={isFavorite}
         />
     )
 }
