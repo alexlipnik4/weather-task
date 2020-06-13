@@ -1,6 +1,8 @@
 const lightTheme = {
-    primary: '#6200ee',
+    primary: '#f48080',
     secondary: 'white',
+    textPrimaryOnBackground: 'black',
+    surface: 'white',
 }
 
 export default lightTheme; 

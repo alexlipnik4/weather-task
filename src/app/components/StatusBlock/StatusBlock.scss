@@ -7,6 +7,8 @@
     flex: 1;
     position: relative;
     overflow: hidden;
+    color: var(--mdc-theme-text-primary-on-background);
+    background: var(--mdc-theme-surface);
 
     img {
         height: 100px;

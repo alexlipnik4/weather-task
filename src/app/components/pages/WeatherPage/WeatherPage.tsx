@@ -85,7 +85,10 @@ const WeatherPage = (props: IWetherPageProps) => (
                     </TopAppBarSection>
 
                     <TopAppBarSection alignEnd>
-                        <TopAppBarActionItem style={{color: `${props.isFavorite ? 'red' : 'white'}`}} onClick={() => props.onFavoriteClick(props.locationKey)} icon="favorite" />
+                        <TopAppBarActionItem
+                            style={{color: `${props.isFavorite ? 'red' : 'var(--mdc-theme-text-primary-on-background)'}`}}
+                            onClick={() => props.onFavoriteClick(props.locationKey)}
+                            icon="favorite" />
                     </TopAppBarSection>
                 </TopAppBarRow>
             </TopAppBar>
