@@ -12,9 +12,8 @@ const FavoritesPageController = () => {
         if(localStorage.getItem('favoriteLocations')) {
             let locations = JSON.parse(localStorage.getItem('favoriteLocations') as any)
             setLocations(locations);
-            console.log(locations)
         } else {
-            console.log('local storage is empty')
+            alert('local storage is empty')
         }
     }, [])
 
@@ -31,6 +30,7 @@ const FavoritesPageController = () => {
         collectFavoriteData(locations);
 
     }, [locations])
+    
     return (
         <FavoritesPage locations={locations} locationsData={LocationsData} />
     )

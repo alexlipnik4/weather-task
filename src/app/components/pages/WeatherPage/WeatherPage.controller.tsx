@@ -11,7 +11,7 @@ const WeatherPageController = (props: any) => {
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(false);
     const [isFavorite, setIsFavorite] = useState(false);
-    const [locationKey, setLocationKey] = useState('1494045');
+    const [locationKey, setLocationKey] = useState('');
     const [modalOpen, setOpen] = React.useState(false);
 
     const [unit, setUnit] = useState('C');
@@ -87,19 +87,6 @@ const WeatherPageController = (props: any) => {
     OutsideInputClick(wrapperRef);
 
     useEffect(() => {
-        // navigator.geolocation.getCurrentPosition(
-        //     function(position) {
-        //         const {latitude, longitude} = position.coords;
-        //         weatherService.getCurrentLocation(latitude, longitude).then(data => {
-        //             props.dispatch(setCurrentLocationName(data.LocalizedName));
-        //             setLocationKey(data.Key)
-        //         })
-        //     },
-        //     function(error) {
-        //         console.log('error'); 
-        //     }
-        // )
-
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
 
         locations && locations.forEach((location: Location) => {
@@ -107,6 +94,28 @@ const WeatherPageController = (props: any) => {
                 setIsFavorite(true)
             }
         })
+
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                const {latitude, longitude} = position.coords;
+                weatherService.getCurrentLocation(latitude, longitude).then(data => {
+                    props.dispatch(setCurrentLocationName(data.LocalizedName));
+                    setLocationKey(data.Key)
+
+                    locations && locations.forEach((location: Location) => {
+                        if(location.locationKey === data.key){
+                            setIsFavorite(true)
+                        } else {
+                            setIsFavorite(false)
+                        }
+                    })
+                })
+            },
+            function(error) {
+                setLocationKey('1494045')
+                throw(error); 
+            }
+        )
     },[]);
 
     useEffect(() => {
@@ -128,7 +137,6 @@ const WeatherPageController = (props: any) => {
         }
     }, [locationKey])
 
-    console.log(props.weather.locationName)
     return (
         <WeatherPage
             onTextChange={onTextChange}
@@ -147,6 +155,8 @@ const WeatherPageController = (props: any) => {
             locationKey={locationKey}
             onFavoriteClick={onFavoriteClick}
             isFavorite={isFavorite}
+
+            {...props}
         />
     )
 }

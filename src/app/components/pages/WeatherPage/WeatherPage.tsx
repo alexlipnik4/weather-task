@@ -15,13 +15,14 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerSubtitle,
-    DrawerContent
+    DrawerContent,
 } from 'rmwc';
 import {IWetherPageProps} from './WeatherPage.model';
 import './WeatherPage.scss';
 
 import {getIcon} from '../../../common/services/weatherIconService'
 import StatusBlock from '../../StatusBlock/StatusBlock';
+import { toggleTheme } from '../../../common/redux/actions';
 
 const WeatherPage = (props: IWetherPageProps) => (
     <>
@@ -34,6 +35,17 @@ const WeatherPage = (props: IWetherPageProps) => (
                 <List>
                     <ListItem selected={props.unit === 'F'} onClick={() => props.onUnitChange('F')}>Imperial</ListItem>
                     <ListItem selected={props.unit === 'C'} onClick={() => props.onUnitChange('C')}>Metric</ListItem>
+                </List>
+            </DrawerContent>
+
+            <DrawerHeader>
+                <DrawerTitle>Theme</DrawerTitle>
+                <DrawerSubtitle>Select dark or light theme</DrawerSubtitle>
+            </DrawerHeader>
+            <DrawerContent>
+                <List>
+                    <ListItem selected={props.weather.themeIsLight} onClick={() => props.dispatch(toggleTheme())}>Light</ListItem>
+                    <ListItem selected={!props.weather.themeIsLight} onClick={() => props.dispatch(toggleTheme())}>Dark</ListItem>
                 </List>
             </DrawerContent>
         </Drawer>
@@ -97,7 +109,7 @@ const WeatherPage = (props: IWetherPageProps) => (
                 <div className="weather-page__content-body">
                     <div className="weather-page__week-status-container">
                         {
-                            props.forecast.DailyForecasts.map((dayValue, i) => (
+                            props.forecast.DailyForecasts && props.forecast.DailyForecasts.map((dayValue, i) => (
                                 <StatusBlock showDate celsius={props.unit === 'C'} key={i} {...dayValue} />
                             ))
                         }

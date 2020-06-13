@@ -2,7 +2,6 @@
     $self: &;
     height: 100%;
     width: 100%;
-    max-width: 1000px;
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -45,6 +44,8 @@
     }
 
     &__content {
+        margin: auto;
+        max-width: 1000px;
         width: 100%;
         padding: 20px;
         max-height: inherit;
@@ -101,4 +102,8 @@
     &__week-status-container {
         display: flex;
     }
+}
+
+.mdc-drawer__content {
+    height: auto !important;
 }

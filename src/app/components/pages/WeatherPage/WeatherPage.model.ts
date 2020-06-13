@@ -63,9 +63,12 @@ export interface IWetherPageProps {
     onFavoriteClick: (value: string) => void,
     unit: string,
     locationName: string,
-    wrapperRef: any,
     showOptions: boolean,
     onUnitChange: (value: string) => void,
     onItemClick: (value: {text: string, key: string}) => void,
     isFavorite: boolean,
+    
+    wrapperRef: any,
+    dispatch: any,
+    weather: any,
 }

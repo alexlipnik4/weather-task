@@ -18,3 +18,7 @@ export const setCurrentLocationName = (locationName: string) => ({
   type: 'SET_CURRENT_LOCATION_NAME',
   locationName
 })
+
+export const toggleTheme = () => ({
+  type: 'TOGGLE_THEME',
+})
