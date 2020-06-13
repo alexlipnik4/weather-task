@@ -9,7 +9,9 @@ import { setCurrentCondition, setForecast, setCurrentLocationName} from '../../.
 const WeatherPageController = (props: any) => {
     const [inputValue, setInputValue] = useState('');
     const [showOptions, setShowOptions] = useState(false);
-    const [locationKey, setLocationKey] = useState('');
+    const [locationKey, setLocationKey] = useState('1494045');
+    const [modalOpen, setOpen] = React.useState(false);
+
     const [unit, setUnit] = useState('C');
 
     const [options, setOptions] = useState([
@@ -28,8 +30,6 @@ const WeatherPageController = (props: any) => {
             Type: 'string',
         }
     ])
-
-
 
     // useEffect(() => {
     //     if(inputValue !== ''){
@@ -65,7 +65,20 @@ const WeatherPageController = (props: any) => {
             };
         }, [ref]);
     }
-
+    
+    const onFavoriteClick = (locationKey: string) => {
+        if(localStorage.getItem('favoriteLocations')) {
+            let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
+            if(locations.includes(locationKey)){
+                return;
+            } else {
+                localStorage.setItem('favoriteLocations', JSON.stringify([...locations, locationKey]));
+            }
+        } else {
+            let locations: string[] = [locationKey];
+            localStorage.setItem('favoriteLocations', JSON.stringify(locations));
+        }
+    }
 
     const onUnitChange = (value: string) => {
         setUnit(value);
@@ -98,6 +111,10 @@ const WeatherPageController = (props: any) => {
             onItemClick={onItemClick}
             unit={unit}
             onUnitChange={onUnitChange}
+            modalOpen={modalOpen}
+            setOpen={setOpen}
+            locationKey={locationKey}
+            onFavoriteClick={onFavoriteClick}
         />
     )
 }

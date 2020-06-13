@@ -15,7 +15,7 @@ function App() {
     <div className="app">
       <Router>
         <div className="app__header">
-          <Typography use="headline5">Weather Task</Typography>
+          <Typography className="app__headline" use="headline5">Weather Task</Typography>
           <Navbar />
         </div>
 
