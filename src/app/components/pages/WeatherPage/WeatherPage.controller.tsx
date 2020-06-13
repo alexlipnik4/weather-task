@@ -6,6 +6,7 @@ import weatherService from '../../../common/services/weatherService';
 import { connect } from 'react-redux'
 import { setCurrentCondition, setForecast, setCurrentLocationName} from '../../../common/redux/actions'
 import {Location} from '../../../common/models/common';
+import { CircularProgress } from 'rmwc';
 
 const WeatherPageController = (props: any) => {
     const [inputValue, setInputValue] = useState('');
@@ -13,6 +14,7 @@ const WeatherPageController = (props: any) => {
     const [isFavorite, setIsFavorite] = useState(false);
     const [locationKey, setLocationKey] = useState('');
     const [modalOpen, setOpen] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(true);
 
     const [unit, setUnit] = useState('C');
 
@@ -134,30 +136,39 @@ const WeatherPageController = (props: any) => {
             weatherService.getFiveDayForecast(locationKey).then(data => {
                 props.dispatch(setForecast(data))
             })
+            setIsLoading(false)
         }
     }, [locationKey])
 
     return (
-        <WeatherPage
-            onTextChange={onTextChange}
-            inputValue={inputValue}
-            locationName={props.weather.locationName}
-            forecast={props.weather.forecast}
-            currentDay={props.weather.condition}
-            options={options}
-            wrapperRef={wrapperRef}
-            showOptions={showOptions}
-            onItemClick={onItemClick}
-            unit={unit}
-            onUnitChange={onUnitChange}
-            modalOpen={modalOpen}
-            setOpen={setOpen}
-            locationKey={locationKey}
-            onFavoriteClick={onFavoriteClick}
-            isFavorite={isFavorite}
+        <>
+        {   isLoading ?
+                <div style={{height: '100%', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+                    <CircularProgress size={72} />
+                </div>
+                :
+                <WeatherPage
+                    onTextChange={onTextChange}
+                    inputValue={inputValue}
+                    locationName={props.weather.locationName}
+                    forecast={props.weather.forecast}
+                    currentDay={props.weather.condition}
+                    options={options}
+                    wrapperRef={wrapperRef}
+                    showOptions={showOptions}
+                    onItemClick={onItemClick}
+                    unit={unit}
+                    onUnitChange={onUnitChange}
+                    modalOpen={modalOpen}
+                    setOpen={setOpen}
+                    locationKey={locationKey}
+                    onFavoriteClick={onFavoriteClick}
+                    isFavorite={isFavorite}
 
-            {...props}
-        />
+                    {...props}
+                />
+        }
+        </>
     )
 }
 
