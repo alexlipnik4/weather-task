@@ -22,7 +22,8 @@ const FavoritesPageController = () => {
             const req = await weatherService.getCurrentConditions(location.locationKey);
             return req;
         });
-        const data: CurrentDay[] = await Promise.all(promises);
+        const data: CurrentDay[] = await Promise.all(promises)
+
         setLocationsData(data as any)
     };
     

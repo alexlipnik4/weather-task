@@ -17,7 +17,7 @@ const WeatherPageController = (props: any) => {
     const [unit, setUnit] = useState('C');
 
     const [options, setOptions] = useState([])
-    
+
     const checkIfLocationKeyExist = () => {
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
         let changed: boolean = false;
