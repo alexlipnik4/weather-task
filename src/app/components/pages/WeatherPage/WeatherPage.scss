@@ -27,7 +27,8 @@
 
         #{$self}__search-options {
             margin-top: 60px;
-            background: white;
+            color: var(--mdc-theme-text-primary-on-background);
+            background: var(--mdc-theme-surface);
             position: absolute;
             width: 100%;
             z-index: 1;

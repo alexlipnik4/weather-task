@@ -19,6 +19,7 @@ import { connect } from 'react-redux';
 function App(props: any) {
   return (
     <ThemeProvider
+      style={{flex: '1'}}
       options={props.weather.themeIsLight ? lightTheme : darkTheme}
     >
       <div className="app mdc-theme--secondary-bg">

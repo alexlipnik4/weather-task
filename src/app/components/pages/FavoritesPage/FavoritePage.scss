@@ -3,6 +3,8 @@
     display: flex;
     flex-wrap: wrap;
     &__item {
+        color: var(--mdc-theme-text-primary-on-background);
+        background: var(--mdc-theme-surface);
         margin: 20px auto;
 
         display: flex;
