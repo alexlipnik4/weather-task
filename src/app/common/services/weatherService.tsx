@@ -1,5 +1,6 @@
 import API_KEY from "../consts/apikey"
 import API_URL from "../consts/apiUrl"
+import { CurrentDay } from "../models/common"
 
 export default {
     getCityAutocomplete: (query: string) => {

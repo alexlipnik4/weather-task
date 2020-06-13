@@ -16,22 +16,7 @@ const WeatherPageController = (props: any) => {
 
     const [unit, setUnit] = useState('C');
 
-    const [options, setOptions] = useState([
-        {
-            AdministrativeArea: {
-                ID: 'string',
-                LocalizedName: 'string',
-            },
-            Country: {
-                ID: 'string',
-                LocalizedName: 'Isreal',
-            },
-            Key: '213225',
-            LocalizedName: 'Jerusalem',
-            Rank: 123,
-            Type: 'string',
-        }
-    ])
+    const [options, setOptions] = useState([])
     
     const checkIfLocationKeyExist = () => {
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
@@ -80,6 +65,7 @@ const WeatherPageController = (props: any) => {
     const onItemClick = (value: {text: string, key: string}) => {
         setInputValue(value.text)
         setLocationKey(value.key)
+        props.dispatch(setCurrentLocationName(value.text))
     }
 
     const OutsideInputClick = (ref: any) => {
@@ -101,39 +87,48 @@ const WeatherPageController = (props: any) => {
     OutsideInputClick(wrapperRef);
 
     useEffect(() => {
+        // navigator.geolocation.getCurrentPosition(
+        //     function(position) {
+        //         const {latitude, longitude} = position.coords;
+        //         weatherService.getCurrentLocation(latitude, longitude).then(data => {
+        //             props.dispatch(setCurrentLocationName(data.LocalizedName));
+        //             setLocationKey(data.Key)
+        //         })
+        //     },
+        //     function(error) {
+        //         console.log('error'); 
+        //     }
+        // )
+
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
 
-        locations.forEach((location: Location) => {
+        locations && locations.forEach((location: Location) => {
             if(location.locationKey === locationKey){
                 setIsFavorite(true)
             }
         })
     },[]);
 
-    // useEffect(() => {
-    //     if(inputValue !== ''){
-    //         weatherService.getCityAutocomplete(inputValue).then(data => {
-    //             setOptions(data)
-    //         })
-    //     }
-    // }, [inputValue])
+    useEffect(() => {
+        if(inputValue !== ''){
+            weatherService.getCityAutocomplete(inputValue).then(data => {
+                setOptions(data)
+            })
+        }
+    }, [inputValue])
 
-    // useEffect(() => {
-    //     if(locationKey !== ''){
-    //         weatherService.getCurrentConditions(locationKey).then(data => {
-    //             props.dispatch(setCurrentCondition(data))
-    //         })
-    //         weatherService.getFiveDayForecast(locationKey).then(data => {
-    //             props.dispatch(setForecast(data))
-    //         })
-    //         props.dispatch(setCurrentLocationName(inputValue))
-    //     }
-    // }, [locationKey])
+    useEffect(() => {
+        if(locationKey !== ''){
+            weatherService.getCurrentConditions(locationKey).then(data => {
+                props.dispatch(setCurrentCondition(data))
+            })
+            weatherService.getFiveDayForecast(locationKey).then(data => {
+                props.dispatch(setForecast(data))
+            })
+        }
+    }, [locationKey])
 
-
-    
-    // localStorage.removeItem('favoriteLocations');
-
+    console.log(props.weather.locationName)
     return (
         <WeatherPage
             onTextChange={onTextChange}

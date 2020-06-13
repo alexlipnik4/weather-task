@@ -7,7 +7,7 @@ import './FavoritePage.scss';
 const FavoritesPage = (props: any) => (
     <div className="favorite-page">
         {props.locationsData.map((location: CurrentDay, i: number) => (
-            <Elevation className="favorite-page__item" z={3} key="i">
+            <Elevation className="favorite-page__item" z={3} key={i}>
                 <Typography use="headline5">{props.locations[i].locationName}</Typography>
                 
                 <img src={getIcon(location.WeatherIcon)} />

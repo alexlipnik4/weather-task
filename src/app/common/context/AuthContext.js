@@ -12,18 +12,7 @@ export default ({ children }) => {
     const [locationKey, setLocationKey] = useState(215793);
 
     useEffect(() => {
-        navigator.geolocation.getCurrentPosition(
-            function(position) {
-                const {latitude, longitude} = position.coords;
-                AuthService.getCurrentLocation(latitude, longitude).then(data => {
-                    console.log(data, 'data')
-                })
-            },
-            function(error) {
-                console.log('error'); 
-            }
-        )
-
+        
         // getLocation()
 
 
