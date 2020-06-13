@@ -1,4 +1,5 @@
 import { RefObject } from "react"
+import { Temperature, CurrentDay } from "../../../common/models/common"
 
 export type ForecastHeadline = {
     EffectiveDate: string,
@@ -10,12 +11,6 @@ export type ForecastHeadline = {
     EndEpochDate: number,
     MobileLink: string,
     Link: string,
-}
-
-export type Temperature = {
-    Value: number,
-    Unit: string,
-    UnitType: number
 }
 
 export type DailyForecast = {
@@ -38,22 +33,6 @@ export type DailyForecast = {
       Sources: string[],
       MobileLink: string,
       Link: string,
-}
-
-export type CurrentDay = {
-    EpochTime: number,
-    HasPrecipitation: boolean,
-    IsDayTime: boolean,
-    Link: string,
-    LocalObservationDateTime: string,
-    MobileLink: string,
-    PrecipitationType: string | null,
-    Temperature: {
-        Imperial: Temperature,
-        Metric: Temperature
-    },
-    WeatherIcon: number,
-    WeatherText: string
 }
 
 export interface IWetherPageProps {

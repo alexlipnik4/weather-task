@@ -19,9 +19,9 @@ import {
 } from 'rmwc';
 import {IWetherPageProps} from './WeatherPage.model';
 import './WeatherPage.scss';
-import Day from '../../Day/Day';
 
 import {getIcon} from '../../../common/services/weatherIconService'
+import StatusBlock from '../../StatusBlock/StatusBlock';
 
 const WeatherPage = (props: IWetherPageProps) => (
     <>
@@ -98,7 +98,7 @@ const WeatherPage = (props: IWetherPageProps) => (
                     <div className="weather-page__week-status-container">
                         {
                             props.forecast.DailyForecasts.map((dayValue, i) => (
-                                <Day celsius={props.unit === 'C'} key={i} {...dayValue} />
+                                <StatusBlock showDate celsius={props.unit === 'C'} key={i} {...dayValue} />
                             ))
                         }
                     </div>

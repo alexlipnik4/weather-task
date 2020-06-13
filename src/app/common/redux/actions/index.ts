@@ -1,4 +1,5 @@
-import { CurrentDay, ForecastHeadline, DailyForecast } from "../../../components/pages/WeatherPage/WeatherPage.model"
+import { ForecastHeadline, DailyForecast } from "../../../components/pages/WeatherPage/WeatherPage.model"
+import { CurrentDay } from "../../models/common"
 
 export const setCurrentCondition = (day: CurrentDay) => ({
   type: 'SET_CURRENT_CONDITION',

@@ -5,6 +5,7 @@ import WeatherPage from './WeatherPage';
 import weatherService from '../../../common/services/weatherService';
 import { connect } from 'react-redux'
 import { setCurrentCondition, setForecast, setCurrentLocationName} from '../../../common/redux/actions'
+import {Location} from '../../../common/models/common';
 
 const WeatherPageController = (props: any) => {
     const [inputValue, setInputValue] = useState('');
@@ -31,8 +32,6 @@ const WeatherPageController = (props: any) => {
             Type: 'string',
         }
     ])
-
-    type Location = {locationKey: string, locationName: string};
     
     const checkIfLocationKeyExist = () => {
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
