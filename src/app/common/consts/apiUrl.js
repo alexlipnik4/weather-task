@@ -1,3 +1,3 @@
-const API_URL = "http://dataservice.accuweather.com/";
+const API_URL = "https://dataservice.accuweather.com/";
 
 export default API_URL;
