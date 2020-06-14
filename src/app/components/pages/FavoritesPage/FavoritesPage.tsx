@@ -10,7 +10,7 @@ const FavoritesPage = (props: any) => (
             <Elevation className="favorite-page__item" z={3} key={i}>
                 <Typography use="headline5">{props.locations[i].locationName}</Typography>
                 
-                <img src={getIcon(location.WeatherIcon)} />
+                <img alt="" src={getIcon(location.WeatherIcon)} />
                 
                 <Typography use="body2">
                     {`${Math.round(location.Temperature.Metric.Value)} C`}

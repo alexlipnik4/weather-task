@@ -19,7 +19,7 @@ const NavbarController = () => {
                 changeTabIndex(index)
             }
         })
-    }, [window.location.pathname])
+    }, [])
 
     const onTabClick = (e: TabBarOnActivateEventT) => {
         changeTabIndex(e.detail.index)

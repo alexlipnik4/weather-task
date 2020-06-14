@@ -18,7 +18,7 @@ const StatusBlock = (props: IStatusBlockProps) => {
         <Elevation z={2} className="status-block">
             {!!props.headline && <Typography use="headline4">{props.headline}</Typography>}
 
-            <img src={getIcon(props.Day.Icon)} />
+            <img alt="" src={getIcon(props.Day.Icon)} />
             {props.showDate && 
                 <Typography use="body2">{moment(props.Date).format('dddd')}</Typography>
             }

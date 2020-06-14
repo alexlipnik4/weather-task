@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, Ref } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 
 import WeatherPage from './WeatherPage';
 
@@ -91,30 +91,29 @@ const WeatherPageController = (props: any) => {
     useEffect(() => {
         let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
 
-        locations && locations.forEach((location: Location) => {
-            if(location.locationKey === locationKey){
-                setIsFavorite(true)
-            }
-        })
-
         navigator.geolocation.getCurrentPosition(
             function(position) {
                 const {latitude, longitude} = position.coords;
                 weatherService.getCurrentLocation(latitude, longitude).then(data => {
+                    
                     props.dispatch(setCurrentLocationName(data.LocalizedName));
                     setLocationKey(data.Key)
-
                     locations && locations.forEach((location: Location) => {
-                        if(location.locationKey === data.key){
+                        
+                        if(Object.values(location).indexOf(data.Key) > -1){
                             setIsFavorite(true)
-                        } else {
-                            setIsFavorite(false)
                         }
                     })
                 })
             },
             function(error) {
                 setLocationKey('1494045')
+
+                locations && locations.forEach((location: Location) => {
+                    if(Object.values(location).indexOf('1494045') > -1){
+                        setIsFavorite(true)
+                    }
+                })
                 throw(error); 
             }
         )

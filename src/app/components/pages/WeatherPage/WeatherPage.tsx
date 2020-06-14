@@ -95,7 +95,7 @@ const WeatherPage = (props: IWetherPageProps) => (
             
             <div className="weather-page__content">
                 <div className="weather-page__current-day-status">
-                    <img src={getIcon(props.currentDay.WeatherIcon)} />
+                    <img alt="" src={getIcon(props.currentDay.WeatherIcon)} />
                     <div>
                         <Typography tag="div" use="body1">{props.locationName}</Typography>
                         <Typography tag="div" use="body1">
