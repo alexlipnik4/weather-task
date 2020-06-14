@@ -13,7 +13,8 @@ interface IStatusBlockProps extends DailyForecast {
 }
 
 const StatusBlock = (props: IStatusBlockProps) => {
-    const temperature = props.celsius ? (props.Temperature.Maximum.Value - 32)*5/9 : props.Temperature.Maximum.Value;
+    const temperatureMax = props.celsius ? (props.Temperature.Maximum.Value - 32)*5/9 : props.Temperature.Maximum.Value;
+    const temperatureMin = props.celsius ? (props.Temperature.Minimum.Value - 32)*5/9 : props.Temperature.Minimum.Value;
     return (
         <Elevation z={2} className="status-block">
             {!!props.headline && <Typography use="headline4">{props.headline}</Typography>}
@@ -23,7 +24,7 @@ const StatusBlock = (props: IStatusBlockProps) => {
                 <Typography use="body2">{moment(props.Date).format('dddd')}</Typography>
             }
             <Typography use="body2">
-                {`${Math.round(temperature)} ${props.celsius ? 'C' : props.Temperature.Maximum.Unit}`}
+                {`${Math.round(temperatureMin)} - ${Math.round(temperatureMax)} ${props.celsius ? 'C' : props.Temperature.Maximum.Unit}`}
             </Typography>
         </Elevation>
     )

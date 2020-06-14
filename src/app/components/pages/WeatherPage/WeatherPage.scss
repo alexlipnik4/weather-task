@@ -88,6 +88,12 @@
             div {
                 color: var(--mdc-theme-text-primary-on-background);
                 flex: 1;
+
+                @media screen and (max-width: 500px) {
+                    flex-direction: column;
+                    display: flex;
+                    align-items: center;
+                }
             }
 
             @media screen and (max-width: 500px) {
