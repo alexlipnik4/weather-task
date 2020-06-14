@@ -8,6 +8,7 @@ export default {
                 return res.json().then(data => data)
             }
             else {
+                alert(`Error ${res.status}, ${res.statusText}`)
                 return 'error'
             }
         })
@@ -18,6 +19,7 @@ export default {
                 return res.json().then(data => data[0])
             }
             else {
+                alert(`Error ${res.status}, ${res.statusText}`)
                 return 'error'
             }
         })
@@ -28,6 +30,7 @@ export default {
                 return res.json().then(data => data)
             }
             else {
+                alert(`Error ${res.status}, ${res.statusText}`)
                 return 'error'
             }
         })
@@ -38,6 +41,7 @@ export default {
                 return res.json().then(data => data)
             }
             else {
+                alert(`Error ${res.status}, ${res.statusText}`)
                 return 'error'
             }
         })

@@ -16,7 +16,7 @@ const FavoritesPage = (props: any) => (
                     {`${Math.round(location.Temperature.Metric.Value)} C`}
                 </Typography>
 
-                <Typography use="headline4">{location.WeatherText}</Typography>
+                <Typography className="favorite-page__item-weather-text" use="headline4">{location.WeatherText}</Typography>
             </Elevation>
         ))}
     </div>

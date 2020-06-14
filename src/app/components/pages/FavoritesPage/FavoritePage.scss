@@ -1,4 +1,6 @@
 .favorite-page {
+    $self: &;
+
     padding: 40px;
     display: flex;
     flex-wrap: wrap;
@@ -15,6 +17,10 @@
 
         img {
             height: 200px;
+        }
+
+        #{$self}__item-weather-text {
+            text-align: center;
         }
     }
 }

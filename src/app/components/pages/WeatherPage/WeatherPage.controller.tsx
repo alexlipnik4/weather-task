@@ -60,8 +60,14 @@ const WeatherPageController = (props: any) => {
 
     const onTextChange = (e: React.FormEvent<HTMLInputElement>) => {
         const target = e.target as HTMLTextAreaElement;
-        setShowOptions(true);
-        setInputValue(target.value)
+        const regex = /^[a-zA-Z\s]*$/;
+        if(regex.test(target.value)){
+            setShowOptions(true);
+            setInputValue(target.value)
+        } else {
+            alert('English letters only!')
+        }
+
     }
 
     const onItemClick = (value: {text: string, key: string}) => {
