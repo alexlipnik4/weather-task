@@ -128,6 +128,8 @@ const WeatherPageController = (props: any) => {
     }, [inputValue])
 
     useEffect(() => {
+        let locations = JSON.parse(localStorage.getItem('favoriteLocations') as string)
+
         if(locationKey !== ''){
             weatherService.getCurrentConditions(locationKey).then(data => {
                 props.dispatch(setCurrentCondition(data))
@@ -136,6 +138,13 @@ const WeatherPageController = (props: any) => {
                 props.dispatch(setForecast(data))
             })
             setIsLoading(false)
+
+            locations && locations.forEach((location: Location) => {
+                        
+                if(Object.values(location).indexOf(locationKey) > -1){
+                    setIsFavorite(true)
+                }
+            })
         }
     }, [locationKey])
 
