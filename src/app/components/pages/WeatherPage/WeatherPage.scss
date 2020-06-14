@@ -12,12 +12,14 @@
         position: unset !important;
         
         #{$self}__text-field {
+            $text-field-height: 45px;
             margin-left: 10px;
             background: white;
             border-radius: 5px;
+            height: $text-field-height;
 
             .mdc-text-field {
-                height: 45px;
+                height: $text-field-height;
 
                 i {
                     top: 10px;
@@ -34,11 +36,14 @@
             z-index: 1;
             max-height: 238px;
             overflow-y: auto;
-                
-            #{$self}__list-item {
-                border-bottom: 1px solid #9e9e9e;
-            }
+            padding: 0;
+
+            border-right: 1px solid var(--mdc-theme-primary);
+            border-top: 1px solid var(--mdc-theme-primary);
+            border-left: 1px solid var(--mdc-theme-primary);
+            border-bottom: 1px solid var(--mdc-theme-primary);
         }
+        
         #{$self}__search-options--disabled {
             display: none;
         }
